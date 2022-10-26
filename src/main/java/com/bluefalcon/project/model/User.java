@@ -16,19 +16,20 @@ public class User {
     private String familyName;
     private String givenName;
     private String imageUrl;
-    private String country;
+    private String location;
+
     private List<String> userInterests;
     private List<String> followerUserIds;
     private List<String> followingUserIds;
     private List<String> friendUserIds;
-    private List<String> watchedPosts;
+    private List<String> watchedPostIds;
 
     public User addUser (User user){
         return user;
     }
 
-    public User getUser (User user){
-        return user;
+    public User getUser (String emailId){
+        return null;
     }
 
     public User updateUser (User user){
@@ -48,6 +49,14 @@ public class User {
     }
 
     public List<User> getFriends (){
+        return null;
+    }
+
+    public List<String> getUserInterests(){
+        return null;
+    }
+
+    public List<String> saveUserInterests(){
         return null;
     }
 
