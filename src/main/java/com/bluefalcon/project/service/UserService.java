@@ -11,6 +11,10 @@ public class UserService {
     @Autowired
     UserDao userDao;
 
+    public User addUser (User user){
+        userDao.save(user);
+        return user;
+    }
 
     public User getUser (String emailId){
         return userDao.findByEmailId(emailId);
