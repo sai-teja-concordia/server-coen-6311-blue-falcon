@@ -1,7 +1,0 @@
-com/bluefalcon/project/controllers/LoginController.class
-com/bluefalcon/project/config/AppConfig.class
-com/bluefalcon/project/model/User.class
-com/bluefalcon/project/ServletInitializer.class
-com/bluefalcon/project/config/WebMvcConfig.class
-com/bluefalcon/project/ProjectApplication.class
-com/bluefalcon/project/request/LoginEntity.class
