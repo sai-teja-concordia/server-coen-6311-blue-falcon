@@ -14,10 +14,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUserDetails (@RequestParam ("emailId") String emailId){
-        return ResponseEntity.ok(userService.getUser(emailId));
-    }
 
 
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
