@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://unified:usm2022@unified-social-media.vqpowkx.mongodb.net/unified?retryWrites=true&w=majority
+      uri: mongodb+srv://unified:unified2022@unified-social-media.vqpowkx.mongodb.net/unified?retryWrites=true&w=majority
 server:
   servlet:
     context-path: /unified

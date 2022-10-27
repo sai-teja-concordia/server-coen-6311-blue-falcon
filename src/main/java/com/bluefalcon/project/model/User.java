@@ -27,33 +27,5 @@ public class User {
     public User updateUser (User user){
         return user;
     }
-    
-    public List<User> getUsersInCountry (String country){
-        return null;
-    }
-
-    public List<User> getFollowingUsers (){
-        return null;
-    }
-
-    public List<User> getFollowerUsers (){
-        return null;
-    }
-
-    public List<User> getFriends (){
-        return null;
-    }
-
-    public List<User> getBlockedUsers (){
-        return null;
-    }
-
-    public List<String> getUserInterests(){
-        return null;
-    }
-
-    public List<String> saveUserInterests(){
-        return null;
-    }
 
 }
