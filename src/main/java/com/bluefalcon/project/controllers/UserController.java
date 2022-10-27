@@ -20,9 +20,5 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> saveUser (@RequestBody User user){
-        return ResponseEntity.ok(userService.addUser(user));
-    }
 
 }
