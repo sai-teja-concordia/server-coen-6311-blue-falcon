@@ -17,7 +17,6 @@ public class UserService {
     }
 
     public User getUser (String emailId){
-        User byEmailId = userDao.findByEmailId(emailId);
-        return byEmailId;
+        return userDao.findByEmailId(emailId);
     }
 }
