@@ -6,31 +6,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document
+@Document("user")
 @Data
 public class User {
 
     @Id
     private String id;
-    private String email;
+    private String emailId;
     private String familyName;
     private String givenName;
     private String imageUrl;
     private String location;
-
     private List<String> userInterests;
     private List<String> followerUserIds;
     private List<String> followingUserIds;
     private List<String> friendUserIds;
+    private List<String> blockedUserIds;
     private List<String> watchedPostIds;
-
-    public User addUser (User user){
-        return user;
-    }
-
-    public User getUser (String emailId){
-        return null;
-    }
 
     public User updateUser (User user){
         return user;
@@ -49,6 +41,10 @@ public class User {
     }
 
     public List<User> getFriends (){
+        return null;
+    }
+
+    public List<User> getBlockedUsers (){
         return null;
     }
 

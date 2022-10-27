@@ -1,29 +1,28 @@
 package com.bluefalcon.project.controllers;
 
 import com.bluefalcon.project.model.User;
+import com.bluefalcon.project.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/v1")
+@RestController
+@RequestMapping("/v1")
 public class UserController {
 
-    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getUserDetails (@RequestParam ("emailId") String emailId){
-        User user = new User();
-        user.setEmail(emailId);
-        return ResponseEntity.ok(user);
+    @Autowired
+    UserService userService;
 
-//         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserDetails (@RequestParam ("emailId") String emailId){
+        return ResponseEntity.ok(userService.getUser(emailId));
     }
 
 
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> handleGoogleLogin (User user){
-        return null;
+    public ResponseEntity<User> saveUser (@RequestBody User user){
+        return ResponseEntity.ok(userService.addUser(user));
     }
 
 }
