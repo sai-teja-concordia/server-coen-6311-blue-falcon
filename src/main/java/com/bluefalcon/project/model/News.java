@@ -1,12 +1,14 @@
 package com.bluefalcon.project.model;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document("post")
-public class Post {
+@Data
+@Document("news")
+public class News {
 
     @Id
     private String id;
@@ -20,11 +22,11 @@ public class Post {
     private String sourceName;
     private String location;
 
-    public List<Post> getPosts(String location){
+    public List<News> getNews(String location){
         return  null;
     }
 
-    public List<Post> savePosts(List<Post> posts){
+    public List<News> saveNews(List<News> posts){
         return  null;
     };
 
