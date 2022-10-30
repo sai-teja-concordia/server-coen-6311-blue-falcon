@@ -1,0 +1,1 @@
+web: java -jar target/project-0.01.SNAPSHOT.war.original
