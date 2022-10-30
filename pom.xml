@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>com.blue-falcon</groupId>
 	<artifactId>project</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<version>latest</version>
+	<packaging>jar</packaging>
 	<name>project</name>
 	<description>Unified Social Media Application</description>
 	<properties>
@@ -76,11 +76,20 @@
 	</dependencies>
 
 	<build>
+		<finalName>unified-server-latest</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
+					<layout>ZIP</layout>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

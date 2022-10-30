@@ -3,6 +3,6 @@ spring:
     mongodb:
       uri: mongodb+srv://unified:unified2022@unified-social-media.vqpowkx.mongodb.net/unified?retryWrites=true&w=majority
 server:
-  port: 8080
+  port: ${PORT:8080}
   servlet:
     context-path: /unified

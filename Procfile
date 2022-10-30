@@ -1,1 +1,1 @@
-web: java -jar target/project-0.0.1.SNAPSHOT.war
+web: java -jar target/unified-server-latest.jar
