@@ -16,11 +16,13 @@ public class News {
     private String author;
     private String url;
     private String urlToImage;
+    private String category;
     private String description;
     private String content;
     private Long publishedAtEpoch;
     private String sourceName;
     private String location;
+    private Integer dayId;
 
     public List<News> getNews(String location){
         return  null;
