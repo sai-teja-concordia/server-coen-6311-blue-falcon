@@ -15,6 +15,7 @@ public class News {
     private String title;
     private String author;
     private String url;
+    private List<String> keywords;
     private String urlToImage;
     private String category;
     private String description;
