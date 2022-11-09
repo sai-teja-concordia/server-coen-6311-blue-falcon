@@ -8,21 +8,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUserDetails (@RequestParam ("emailId") String emailId){
+    @GetMapping(value = "/getUser", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserDetails(@RequestParam("emailId") String emailId) {
         return ResponseEntity.ok(userService.getUser(emailId));
     }
 
 
-    @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> saveUser (@RequestBody User user){
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.addUser(user));
+    }
+
+    @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> updateUser(@RequestBody User payload) {
+        return ResponseEntity.ok(userService.updateUser(payload));
     }
 
 }
