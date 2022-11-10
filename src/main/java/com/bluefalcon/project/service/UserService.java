@@ -42,7 +42,7 @@ public class UserService {
         updateQuery.addCriteria(Criteria.where("emailId").is(user.getEmailId()));
         Update update = new Update();
         if (user.getName() != null) {
-            update.set("familyName", user.getName());
+            update.set("name", user.getName());
         }
         if (user.getLocation() != null) {
             update.set("location", user.getLocation());
