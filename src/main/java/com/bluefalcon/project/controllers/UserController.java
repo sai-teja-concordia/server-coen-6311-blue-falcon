@@ -1,6 +1,5 @@
 package com.bluefalcon.project.controllers;
 
-import com.bluefalcon.project.exception.InvalidPayload;
 import com.bluefalcon.project.model.User;
 import com.bluefalcon.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
