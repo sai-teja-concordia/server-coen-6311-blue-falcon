@@ -12,6 +12,8 @@ public class UserService {
     UserDao userDao;
 
     public User addUser (User user){
+        user.setCreated(System.currentTimeMillis());
+        user.setUpdated(System.currentTimeMillis());
         userDao.save(user);
         return user;
     }

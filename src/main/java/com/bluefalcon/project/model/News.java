@@ -24,6 +24,8 @@ public class News {
     private String sourceName;
     private String location;
     private Integer dayId;
+    private Long created;
+    private Long updated;
 
     public List<News> getNews(String location){
         return  null;

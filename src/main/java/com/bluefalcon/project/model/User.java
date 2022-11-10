@@ -17,6 +17,8 @@ public class User {
     private String givenName;
     private String imageUrl;
     private String location;
+    private Long created;
+    private Long updated;
     private List<String> userInterests;
     private List<String> followerUserIds;
     private List<String> followingUserIds;
