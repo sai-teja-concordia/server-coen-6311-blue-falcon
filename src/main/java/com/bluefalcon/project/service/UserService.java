@@ -27,7 +27,7 @@ public class UserService {
 
     public Boolean addFavouriteTopic(User user){
         Query fetchQuery = new Query();
-        fetchQuery.addCriteria(Criteria.where("id").is(user.getId()));
+        fetchQuery.addCriteria(Criteria.where("emailId").is(user.getEmailId()));
         Update update = new Update();
         update.set("firstName", user.getId());
         update.set("userInterests", user.getUserInterests());
