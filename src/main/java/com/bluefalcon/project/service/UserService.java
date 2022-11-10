@@ -9,8 +9,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UserService {
 
@@ -24,6 +22,15 @@ public class UserService {
         user.setUpdated(System.currentTimeMillis());
         userDao.save(user);
         return user;
+    }
+
+    public Boolean addFavouriteTopic(User user){
+        Query fetchQuery = new Query();
+        fetchQuery.addCriteria(Criteria.where("emailId").is(user.getEmailId()));
+        Update update = new Update();
+        update.set("userInterests", user.getUserInterests());
+        mongoTemplate.updateFirst(fetchQuery, update, User.class);
+        return true;
     }
 
     public User getUser(String emailId) {
