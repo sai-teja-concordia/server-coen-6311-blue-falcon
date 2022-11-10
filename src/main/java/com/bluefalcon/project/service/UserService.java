@@ -29,7 +29,6 @@ public class UserService {
         Query fetchQuery = new Query();
         fetchQuery.addCriteria(Criteria.where("emailId").is(user.getEmailId()));
         Update update = new Update();
-        update.set("firstName", user.getId());
         update.set("userInterests", user.getUserInterests());
         mongoTemplate.updateFirst(fetchQuery, update, User.class);
         return true;
