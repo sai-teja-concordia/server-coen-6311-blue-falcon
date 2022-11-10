@@ -30,9 +30,6 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-        if (user.getEmailId() == null) {
-            throw new InvalidPayload();
-        }
         Query updateQuery = new Query();
         updateQuery.addCriteria(Criteria.where("emailId").is(user.getEmailId()));
         Update update = new Update();
