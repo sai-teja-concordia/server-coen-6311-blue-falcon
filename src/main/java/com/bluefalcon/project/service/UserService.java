@@ -29,18 +29,15 @@ public class UserService {
         return userDao.findByEmailId(emailId);
     }
 
-    public Boolean updateUser(User user) {
+    public User updateUser(User user) {
         if (user.getEmailId() == null) {
             throw new InvalidPayload();
         }
         Query updateQuery = new Query();
         updateQuery.addCriteria(Criteria.where("emailId").is(user.getEmailId()));
         Update update = new Update();
-        if (user.getFamilyName() != null) {
-            update.set("familyName", user.getFamilyName());
-        }
-        if (user.getGivenName() != null) {
-            update.set("givenName", user.getGivenName());
+        if (user.getName() != null) {
+            update.set("familyName", user.getName());
         }
         if (user.getLocation() != null) {
             update.set("location", user.getLocation());
@@ -52,6 +49,6 @@ public class UserService {
             update.set("userInterests", user.getUserInterests());
         }
         mongoTemplate.updateFirst(updateQuery, update, User.class);
-        return true;
+        return user;
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/v1")
 public class UserController {
 
     @Autowired
@@ -22,16 +22,13 @@ public class UserController {
         return ResponseEntity.ok(userService.getUser(emailId));
     }
 
-
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.addUser(user));
     }
 
     @PatchMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ExceptionHandler(value = InvalidPayload.class)
-    public ResponseEntity<Boolean> updateUser(@RequestBody User payload) {
+    public ResponseEntity<User> updateUser(@RequestBody User payload) {
         return ResponseEntity.ok(userService.updateUser(payload));
     }
-
 }

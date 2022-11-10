@@ -14,8 +14,6 @@ public class User {
     private String id;
     private String emailId;
     private String name;
-    private String familyName;
-    private String givenName;
     private String location;
     private String imageUrl;
     private List<String> userInterests;
