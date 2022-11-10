@@ -13,12 +13,11 @@ public class User {
     @Id
     private String id;
     private String emailId;
-    private String familyName;
-    private String givenName;
-    private String imageUrl;
+    private String name;
     private String location;
     private Long created;
     private Long updated;
+    private String imageUrl;
     private List<String> userInterests;
     private List<String> followerUserIds;
     private List<String> followingUserIds;
@@ -26,7 +25,7 @@ public class User {
     private List<String> blockedUserIds;
     private List<String> watchedPostIds;
 
-    public User updateUser (User user){
+    public User updateUser(User user) {
         return user;
     }
 

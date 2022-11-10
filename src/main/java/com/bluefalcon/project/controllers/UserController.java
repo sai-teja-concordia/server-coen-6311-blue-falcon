@@ -14,15 +14,20 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUserDetails (@RequestParam ("emailId") String emailId){
+    public ResponseEntity<User> getUserDetails(@RequestParam("emailId") String emailId)
+    {
         return ResponseEntity.ok(userService.getUser(emailId));
     }
 
-
     @PostMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> saveUser (@RequestBody User user){
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.addUser(user));
     }
 
+    @PatchMapping(value = "/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> updateUser(@RequestBody User payload) {
+        return ResponseEntity.ok(userService.updateUser(payload));
+    }
 }
