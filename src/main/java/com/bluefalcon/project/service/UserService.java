@@ -1,7 +1,6 @@
 package com.bluefalcon.project.service;
 
 import com.bluefalcon.project.dao.UserDao;
-import com.bluefalcon.project.exception.InvalidPayload;
 import com.bluefalcon.project.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
