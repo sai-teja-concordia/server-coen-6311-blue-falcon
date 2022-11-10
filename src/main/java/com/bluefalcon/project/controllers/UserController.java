@@ -14,6 +14,11 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    
+     @PostMapping(value = "/add-fav-topic", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> addFavouriteTopics(@RequestBody User user) {
+        return ResponseEntity.ok(userService.addFavouriteTopic(user));
+    }
 
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUserDetails(@RequestParam("emailId") String emailId) {
@@ -26,9 +31,6 @@ public class UserController {
         return ResponseEntity.ok(userService.addUser(user));
     }
 
-    @PostMapping(value = "/add-fav-topic", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> addFavouriteTopics(@RequestBody User user) {
-        return ResponseEntity.ok(userService.addFavouriteTopic(user));
-    }
+   
 
 }
