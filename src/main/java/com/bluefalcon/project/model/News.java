@@ -27,12 +27,4 @@ public class News {
     private Long created;
     private Long updated;
 
-    public List<News> getNews(String location){
-        return  null;
-    }
-
-    public List<News> saveNews(List<News> posts){
-        return  null;
-    };
-
 }
