@@ -8,6 +8,7 @@ import com.bluefalcon.project.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,6 +29,21 @@ public class NewsService {
     }
 
     public CategoryNewsResponse getNews(List<String> categories) {
-        return null;
+        Integer currentDayId = commonUtils.getCurrentDayId();
+        List<NewsResponse> listOfNewsResponse= new ArrayList<>();
+
+        System.out.println("size----------->   "+categories.size());
+        for (int i=0;i< categories.size();i++){
+
+               List<News> listOfNews = newsDao.findByCategoryAndDayId(categories.get(i), currentDayId);
+               NewsResponse newsResponse  = NewsResponse.builder().newsList(listOfNews).category(categories.get(i)).build();
+               listOfNewsResponse.add(newsResponse);
+        }
+
+
+        return CategoryNewsResponse.builder()
+                .categoryNews(listOfNewsResponse)
+                .build();
+
     }
 }

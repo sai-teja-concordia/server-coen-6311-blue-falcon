@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class NewsResponse {
+public class NewsResponse{
 
     private List<News> newsList;
 

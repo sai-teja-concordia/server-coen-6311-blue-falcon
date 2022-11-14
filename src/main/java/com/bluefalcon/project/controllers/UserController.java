@@ -14,7 +14,7 @@ public class UserController {
 
     @Autowired
     UserService userService;
-    
+
      @PostMapping(value = "/add-fav-topic", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> addFavouriteTopics(@RequestBody User user) {
         return ResponseEntity.ok(userService.addFavouriteTopic(user));
@@ -34,4 +34,6 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody User payload) {
         return ResponseEntity.ok(userService.updateUser(payload));
     }
+
+
 }
