@@ -13,5 +13,7 @@ public class UserActivity {
     @Id
     private String id;
 
+    private String userId;
+
     private List<String> favouriteNews;
 }

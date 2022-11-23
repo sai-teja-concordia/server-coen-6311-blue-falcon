@@ -13,5 +13,7 @@ public class UserChat {
     @Id
     private String id;
 
+    private String userId;
+
     private List<String> chats;
 }
