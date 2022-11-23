@@ -4,8 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Document("user_social")
 @Data
@@ -16,16 +16,16 @@ public class UserSocial {
 
     private String userId;
 
-    private List<String> friends = new ArrayList<>();
+    private Set<String> friends = new HashSet<>();
 
-    private List<String> sentFriendRequests = new ArrayList<>();
+    private Set<String> sentFriendRequests = new HashSet<>();
 
-    private List<String> receivedFriendRequests = new ArrayList<>();
+    private Set<String> receivedFriendRequests = new HashSet<>();
 
-    private List<String> followerUsers = new ArrayList<>();
+    private Set<String> followerUsers = new HashSet<>();
 
-    private List<String> followingUsers = new ArrayList<>();
+    private Set<String> followingUsers = new HashSet<>();
 
-    private List<String> blockedUsers = new ArrayList<>();
+    private Set<String> blockedUsers = new HashSet<>();
 
 }

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -96,7 +97,7 @@ public class UserService {
     public List<User> getUserFriends(String userId) {
 
         UserSocial userSocial = userSocialDao.findByUserId(userId);
-        List<String> friendUserIds = userSocial.getFriends();
+        Set<String> friendUserIds = userSocial.getFriends();
         Iterable<User> friendsIter = userDao.findAllById(friendUserIds);
         List<User> friends = new ArrayList<>();
         friendsIter.forEach(e -> {

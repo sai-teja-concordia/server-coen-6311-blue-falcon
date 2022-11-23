@@ -35,12 +35,12 @@ public class UserController {
     }
 
     @PostMapping(value = "/users/friends", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BaseResponse> sendFriendRequest(FriendRequest friendRequest) {
+    public ResponseEntity<BaseResponse> sendFriendRequest(@RequestBody FriendRequest friendRequest) {
         return ResponseEntity.ok(userService.sendingFriendRequest(friendRequest));
     }
 
     @PatchMapping(value = "/users/friends", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BaseResponse> actionFriendRequest(FriendRequest friendRequest) {
+    public ResponseEntity<BaseResponse> actionFriendRequest(@RequestBody FriendRequest friendRequest) {
         return ResponseEntity.ok(userService.actionFriendRequest(friendRequest));
     }
 
