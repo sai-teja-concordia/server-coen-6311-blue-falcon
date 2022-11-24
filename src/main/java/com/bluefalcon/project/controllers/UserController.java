@@ -3,6 +3,7 @@ package com.bluefalcon.project.controllers;
 import com.bluefalcon.project.model.User;
 import com.bluefalcon.project.request.FriendRequest;
 import com.bluefalcon.project.response.BaseResponse;
+import com.bluefalcon.project.response.UserSocialResponse;
 import com.bluefalcon.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,7 +30,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUser(emailId));
     }
 
-    @GetMapping(value = "/users/:userId", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUserById(@PathVariable("userId") String userId) {
         return ResponseEntity.ok(userService.getUserById(userId));
     }
@@ -37,6 +38,11 @@ public class UserController {
     @GetMapping(value = "/users/friends", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getUserFriends(@RequestParam("userId") String userId) {
         return ResponseEntity.ok(userService.getUserFriends(userId));
+    }
+
+    @GetMapping(value = "/users/social", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserSocialResponse> getUserSocial(@RequestParam("userId") String userId) {
+        return ResponseEntity.ok(userService.getUserSocial(userId));
     }
 
     @PostMapping(value = "/users/friends", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -11,6 +11,7 @@ import com.bluefalcon.project.model.UserChat;
 import com.bluefalcon.project.model.UserSocial;
 import com.bluefalcon.project.request.FriendRequest;
 import com.bluefalcon.project.response.BaseResponse;
+import com.bluefalcon.project.response.UserSocialResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -19,6 +20,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -94,18 +96,49 @@ public class UserService {
     }
 
 
-    public List<User> getUserFriends(String userId) {
+    public UserSocialResponse getUserSocial(String userId) {
 
+        UserSocial userSocial = userSocialDao.findByUserId(userId);
+        Set<String> allUserIds = new HashSet<>();
+        Set<String> friendUserIds = userSocial.getFriends();
+        Set<String> followerUserIds = userSocial.getFollowerUsers();
+        Set<String> followingUserIds = userSocial.getFollowingUsers();
+        Set<String> blockedUserIds = userSocial.getBlockedUsers();
+        allUserIds.addAll(friendUserIds);
+        allUserIds.addAll(followerUserIds);
+        allUserIds.addAll(followingUserIds);
+        allUserIds.addAll(blockedUserIds);
+
+        Iterable<User> allUsers = userDao.findAllById(allUserIds);
+        List<User> friends = new ArrayList<>();
+        List<User> followers = new ArrayList<>();
+        List<User> following = new ArrayList<>();
+        List<User> blockedUsers = new ArrayList<>();
+        allUsers.forEach(e -> {
+            if (friendUserIds.contains(e.getId())){
+                friends.add(e);
+            } else if (followerUserIds.contains(e.getId())){
+                followers.add(e);
+            } else if (followingUserIds.contains(e.getId())){
+                following.add(e);
+            } else if (blockedUserIds.contains(e.getId())){
+                blockedUsers.add(e);
+            }
+        });
+        return UserSocialResponse.builder()
+                .friends(friends)
+                .followers(followers)
+                .following(following)
+                .blocked(blockedUsers)
+                .build();
+    }
+
+    public List<User> getUserFriends(String userId) {
         UserSocial userSocial = userSocialDao.findByUserId(userId);
         Set<String> friendUserIds = userSocial.getFriends();
         Iterable<User> friendsIter = userDao.findAllById(friendUserIds);
         List<User> friends = new ArrayList<>();
-        friendsIter.forEach(e -> {
-            e.setSocialProfile(null);
-            e.setUserActivity(null);
-            e.setUserChat(null);
-            friends.add(e);
-        });
+        friendsIter.forEach(friends::add);
         return friends;
     }
 

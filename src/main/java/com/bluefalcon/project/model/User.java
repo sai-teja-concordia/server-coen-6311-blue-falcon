@@ -19,9 +19,6 @@ public class User {
     private Long updated;
     private String imageUrl;
     private List<String> userInterests;
-    private List<UserSocial> socialProfile;
-    private List<UserActivity> userActivity;
-    private UserChat userChat;
 
     public User updateUser(User user) {
         return user;
