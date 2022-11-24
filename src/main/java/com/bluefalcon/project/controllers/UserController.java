@@ -45,6 +45,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserSocial(userId));
     }
 
+    @GetMapping(value = "/users/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>> userSearch(@RequestParam("query") String query) {
+        return ResponseEntity.ok(userService.searchUsers(query));
+    }
+
     @PostMapping(value = "/users/friends", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse> sendFriendRequest(@RequestBody FriendRequest friendRequest) {
         return ResponseEntity.ok(userService.sendingFriendRequest(friendRequest));

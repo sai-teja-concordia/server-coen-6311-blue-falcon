@@ -216,4 +216,8 @@ public class UserService {
         user.setBlocked(blockedUsers);
         return user;
     }
+
+    public List<User> searchUsers(String query) {
+        return userDao.findByNameLike(query);
+    }
 }

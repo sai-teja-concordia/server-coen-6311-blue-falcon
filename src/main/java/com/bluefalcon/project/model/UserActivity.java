@@ -17,3 +17,17 @@ public class UserActivity {
 
     private List<String> favouriteNews;
 }
+
+/*
+{
+    "userId":
+    "newsId" :
+    Status: "BOOKMARKED, UNBOOKMARKED"
+}
+ {
+
+        "userId" : "",
+        "fa" : "fv1", "fv2", "fv3"
+
+  }
+ */
