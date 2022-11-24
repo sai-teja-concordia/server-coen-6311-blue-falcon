@@ -29,6 +29,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getUser(emailId));
     }
 
+    @GetMapping(value = "/users/:userId", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserById(@PathVariable("userId") String userId) {
+        return ResponseEntity.ok(userService.getUserById(userId));
+    }
+
     @GetMapping(value = "/users/friends", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getUserFriends(@RequestParam("userId") String userId) {
         return ResponseEntity.ok(userService.getUserFriends(userId));

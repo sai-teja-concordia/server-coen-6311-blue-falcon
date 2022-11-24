@@ -147,4 +147,8 @@ public class UserService {
         }
         return null;
     }
+
+    public User getUserById(String userId) {
+        return userDao.findById(userId).orElse(null);
+    }
 }
