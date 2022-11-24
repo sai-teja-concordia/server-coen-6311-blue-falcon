@@ -182,6 +182,38 @@ public class UserService {
     }
 
     public User getUserById(String userId) {
-        return userDao.findById(userId).orElse(null);
+        User user = userDao.findById(userId).orElse(null);
+        UserSocial userSocial = userSocialDao.findByUserId(userId);
+        Set<String> allUserIds = new HashSet<>();
+        Set<String> friendUserIds = userSocial.getFriends();
+        Set<String> followerUserIds = userSocial.getFollowerUsers();
+        Set<String> followingUserIds = userSocial.getFollowingUsers();
+        Set<String> blockedUserIds = userSocial.getBlockedUsers();
+        allUserIds.addAll(friendUserIds);
+        allUserIds.addAll(followerUserIds);
+        allUserIds.addAll(followingUserIds);
+        allUserIds.addAll(blockedUserIds);
+
+        Iterable<User> allUsers = userDao.findAllById(allUserIds);
+        List<User> friends = new ArrayList<>();
+        List<User> followers = new ArrayList<>();
+        List<User> following = new ArrayList<>();
+        List<User> blockedUsers = new ArrayList<>();
+        allUsers.forEach(e -> {
+            if (friendUserIds.contains(e.getId())){
+                friends.add(e);
+            } else if (followerUserIds.contains(e.getId())){
+                followers.add(e);
+            } else if (followingUserIds.contains(e.getId())){
+                following.add(e);
+            } else if (blockedUserIds.contains(e.getId())){
+                blockedUsers.add(e);
+            }
+        });
+        user.setFriends(friends);
+        user.setFollowers(followers);
+        user.setFollowing(following);
+        user.setBlocked(blockedUsers);
+        return user;
     }
 }

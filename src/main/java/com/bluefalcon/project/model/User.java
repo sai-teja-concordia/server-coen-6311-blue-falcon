@@ -19,6 +19,10 @@ public class User {
     private Long updated;
     private String imageUrl;
     private List<String> userInterests;
+    private List<User> friends;
+    private List<User> followers;
+    private List<User> following;
+    private List<User> blocked;
 
     public User updateUser(User user) {
         return user;
