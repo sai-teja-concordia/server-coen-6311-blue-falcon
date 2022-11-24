@@ -124,6 +124,7 @@ public class UserService {
             } else if (blockedUserIds.contains(e.getId())){
                 blockedUsers.add(e);
             }
+            
         });
         return UserSocialResponse.builder()
                 .friends(friends)
