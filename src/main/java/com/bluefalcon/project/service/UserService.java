@@ -12,6 +12,7 @@ import com.bluefalcon.project.model.UserSocial;
 import com.bluefalcon.project.request.FriendRequest;
 import com.bluefalcon.project.response.BaseResponse;
 import com.bluefalcon.project.response.UserSocialResponse;
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -19,10 +20,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -218,6 +217,11 @@ public class UserService {
     }
 
     public List<User> searchUsers(String query) {
-        return userDao.findByNameLike(query);
+        List<User> allUsers = userDao.findAll();
+        List<User> filteredUsers = allUsers.stream().filter(user -> {
+            int ratio = FuzzySearch.partialRatio(user.getName().toLowerCase(Locale.ROOT) , query.toLowerCase(Locale.ROOT));
+            return ratio >= 80;
+        }).collect(Collectors.toList());
+        return filteredUsers;
     }
 }
