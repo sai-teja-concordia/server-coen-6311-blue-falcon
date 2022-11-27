@@ -61,6 +61,12 @@ public class UserService {
         return savedUser;
     }
 
+    public List<User> getUsersNearMe(String location){
+        Query fetchQuery = new Query();
+        fetchQuery.addCriteria(Criteria.where("location").is(location));
+        return mongoTemplate.find(fetchQuery, User.class);
+    }
+
     public Boolean addFavouriteTopic(User user){
         Query fetchQuery = new Query();
         fetchQuery.addCriteria(Criteria.where("emailId").is(user.getEmailId()));
