@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableMongoRepositories(basePackages = "com.bluefalcon.project.dao")
 public class ProjectApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectApplication.class, args);
 	}
