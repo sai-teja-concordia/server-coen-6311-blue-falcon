@@ -1,5 +1,5 @@
 package com.bluefalcon.project.enums;
 
 public enum FriendRequestStatus {
-    ACCEPTED, REJECTED, PENDING
+    ACCEPTED, REJECTED, PENDING, UNFRIEND
 }

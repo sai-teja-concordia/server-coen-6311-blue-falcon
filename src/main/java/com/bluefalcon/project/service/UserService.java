@@ -193,6 +193,16 @@ public class UserService {
             userSocialDao.save(toUser);
             userSocialDao.save(fromUser);
             return BaseResponse.builder().message("Success").build();
+        } else if (FriendRequestStatus.UNFRIEND.equals(friendRequest.getStatus())){
+            String toUserId = friendRequest.getToUserId();
+            String fromUserId = friendRequest.getFromUserId();
+            UserSocial toUser = userSocialDao.findByUserId(toUserId);
+            UserSocial fromUser = userSocialDao.findByUserId(fromUserId);
+            toUser.getFriends().remove(fromUserId);
+            fromUser.getFriends().remove(toUserId);
+            userSocialDao.save(toUser);
+            userSocialDao.save(fromUser);
+            return BaseResponse.builder().message("Success").build();
         }
         return null;
     }
