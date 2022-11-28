@@ -107,12 +107,14 @@ public class UserService {
         Set<String> followerUserIds = userSocial.getFollowerUsers();
         Set<String> followingUserIds = userSocial.getFollowingUsers();
         Set<String> receivedFriendRequests = userSocial.getReceivedFriendRequests();
+        Set<String> sentFriendRequests = userSocial.getReceivedFriendRequests();
         Set<String> blockedUserIds = userSocial.getBlockedUsers();
         allUserIds.addAll(friendUserIds);
         allUserIds.addAll(followerUserIds);
         allUserIds.addAll(followingUserIds);
         allUserIds.addAll(blockedUserIds);
         allUserIds.addAll(receivedFriendRequests);
+        allUserIds.addAll(sentFriendRequests);
 
         Iterable<User> allUsers = userDao.findAllById(allUserIds);
         List<User> friends = new ArrayList<>();
@@ -120,6 +122,7 @@ public class UserService {
         List<User> following = new ArrayList<>();
         List<User> blockedUsers = new ArrayList<>();
         List<User> receivedRequests = new ArrayList<>();
+        List<User> sentRequests = new ArrayList<>();
 
         allUsers.forEach(e -> {
             if (friendUserIds.contains(e.getId())){
@@ -132,6 +135,8 @@ public class UserService {
                 blockedUsers.add(e);
             } else if (receivedFriendRequests.contains(e.getId())){
                 receivedRequests.add(e);
+            }  else if (sentFriendRequests.contains(e.getId())){
+                sentRequests.add(e);
             }
         });
         return UserSocialResponse.builder()
@@ -139,7 +144,8 @@ public class UserService {
                 .followers(followers)
                 .following(following)
                 .blocked(blockedUsers)
-                .requests(receivedRequests)
+                .receivedRequests(receivedRequests)
+                .sentRequests(sentRequests)
                 .build();
     }
 

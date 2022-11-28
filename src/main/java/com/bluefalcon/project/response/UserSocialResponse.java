@@ -17,7 +17,9 @@ public class UserSocialResponse {
     private List<User> following;
 
     private List<User> blocked;
-    
-    private List<User> requests;
+
+    private List<User> receivedRequests;
+
+    private List<User> sentRequests;
 
 }
