@@ -23,6 +23,7 @@ public class User {
     private List<User> followers;
     private List<User> following;
     private List<User> blocked;
+    private List<News> savedNews;
 
     public User updateUser(User user) {
         return user;

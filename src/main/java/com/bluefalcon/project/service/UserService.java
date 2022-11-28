@@ -1,14 +1,8 @@
 package com.bluefalcon.project.service;
 
-import com.bluefalcon.project.dao.UserActivityDao;
-import com.bluefalcon.project.dao.UserChatDao;
-import com.bluefalcon.project.dao.UserDao;
-import com.bluefalcon.project.dao.UserSocialDao;
+import com.bluefalcon.project.dao.*;
 import com.bluefalcon.project.enums.FriendRequestStatus;
-import com.bluefalcon.project.model.User;
-import com.bluefalcon.project.model.UserActivity;
-import com.bluefalcon.project.model.UserChat;
-import com.bluefalcon.project.model.UserSocial;
+import com.bluefalcon.project.model.*;
 import com.bluefalcon.project.request.FriendRequest;
 import com.bluefalcon.project.response.BaseResponse;
 import com.bluefalcon.project.response.UserSocialResponse;
@@ -19,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,6 +23,9 @@ public class UserService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    NewsDao newsDao;
 
     @Autowired
     UserSocialDao userSocialDao;
@@ -108,17 +106,21 @@ public class UserService {
         Set<String> friendUserIds = userSocial.getFriends();
         Set<String> followerUserIds = userSocial.getFollowerUsers();
         Set<String> followingUserIds = userSocial.getFollowingUsers();
+        Set<String> receivedFriendRequests = userSocial.getReceivedFriendRequests();
         Set<String> blockedUserIds = userSocial.getBlockedUsers();
         allUserIds.addAll(friendUserIds);
         allUserIds.addAll(followerUserIds);
         allUserIds.addAll(followingUserIds);
         allUserIds.addAll(blockedUserIds);
+        allUserIds.addAll(receivedFriendRequests);
 
         Iterable<User> allUsers = userDao.findAllById(allUserIds);
         List<User> friends = new ArrayList<>();
         List<User> followers = new ArrayList<>();
         List<User> following = new ArrayList<>();
         List<User> blockedUsers = new ArrayList<>();
+        List<User> receivedRequests = new ArrayList<>();
+
         allUsers.forEach(e -> {
             if (friendUserIds.contains(e.getId())){
                 friends.add(e);
@@ -128,6 +130,8 @@ public class UserService {
                 following.add(e);
             } else if (blockedUserIds.contains(e.getId())){
                 blockedUsers.add(e);
+            } else if (receivedFriendRequests.contains(e.getId())){
+                receivedRequests.add(e);
             }
         });
         return UserSocialResponse.builder()
@@ -135,6 +139,7 @@ public class UserService {
                 .followers(followers)
                 .following(following)
                 .blocked(blockedUsers)
+                .requests(receivedRequests)
                 .build();
     }
 
@@ -219,6 +224,17 @@ public class UserService {
         user.setFollowers(followers);
         user.setFollowing(following);
         user.setBlocked(blockedUsers);
+
+        UserActivity userActivity = userActivityDao.findByUserId(userId);
+        if(userActivity != null){
+            List<String> favouriteNewsIds = userActivity.getFavouriteNews();
+            if (!CollectionUtils.isEmpty(favouriteNewsIds)){
+                Iterable<News> favNews = newsDao.findAllById(favouriteNewsIds);
+                List<News> favouriteNews = new ArrayList<>();
+                favNews.forEach(favouriteNews::add);
+                user.setSavedNews(favouriteNews);
+            }
+        }
         return user;
     }
 

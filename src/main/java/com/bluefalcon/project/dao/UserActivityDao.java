@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserActivityDao extends MongoRepository<UserActivity, String> {
+    UserActivity findByUserId(String userId);
 }
