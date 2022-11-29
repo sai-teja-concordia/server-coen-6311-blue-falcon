@@ -1,6 +1,7 @@
 package com.bluefalcon.project.model;
 
 import lombok.Data;
+import com.bluefalcon.project.model.News;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -24,6 +25,7 @@ public class User {
     private List<User> following;
     private List<User> blocked;
     private List<News> savedNews;
+    private List<News> wishlist;
 
     public User updateUser(User user) {
         return user;

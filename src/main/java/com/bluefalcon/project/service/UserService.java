@@ -3,6 +3,11 @@ package com.bluefalcon.project.service;
 import com.bluefalcon.project.dao.*;
 import com.bluefalcon.project.enums.FriendRequestStatus;
 import com.bluefalcon.project.model.*;
+import com.bluefalcon.project.model.User;
+import com.bluefalcon.project.model.News;
+import com.bluefalcon.project.model.UserActivity;
+import com.bluefalcon.project.model.UserChat;
+import com.bluefalcon.project.model.UserSocial;
 import com.bluefalcon.project.request.FriendRequest;
 import com.bluefalcon.project.response.BaseResponse;
 import com.bluefalcon.project.response.UserSocialResponse;
@@ -12,6 +17,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -252,6 +258,41 @@ public class UserService {
             }
         }
         return user;
+    }
+
+    public List<News> getWishlist(String emailId){
+        User user = userDao.findByEmailId(emailId);
+        return user.getWishlist();
+    }
+
+    public List<News> removeNewsFromWishlist(String emailId, String newsId){
+        User user = userDao.findByEmailId(emailId);
+        Optional<News> news = newsDao.findById(newsId);
+        List<News> tempList = user.getWishlist();
+        if (news.isPresent() && user != null) {
+            int index=-1;
+                tempList.remove(news.get());
+
+            user.setWishlist(tempList);
+            userDao.save(user);
+        }
+        return user.getWishlist();
+    }
+
+    public List<News> addNewsToWishlist(String emailId, String newsId){
+
+        User user = userDao.findByEmailId(emailId);
+        Optional<News> news = newsDao.findById(newsId);
+        if (news.isPresent() && user != null) {
+            List<News> tempList = user.getWishlist();
+            if (tempList == null) {
+                tempList = new ArrayList<News>();
+            }
+            tempList.add(news.get());
+            user.setWishlist(tempList);
+            userDao.save(user);
+        }
+        return user.getWishlist();
     }
 
     public List<User> searchUsers(String query) {
