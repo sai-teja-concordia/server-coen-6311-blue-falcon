@@ -215,16 +215,19 @@ public class UserService {
         Set<String> followerUserIds = userSocial.getFollowerUsers();
         Set<String> followingUserIds = userSocial.getFollowingUsers();
         Set<String> blockedUserIds = userSocial.getBlockedUsers();
+        Set<String> sentFriendRequests = userSocial.getSentFriendRequests();
         allUserIds.addAll(friendUserIds);
         allUserIds.addAll(followerUserIds);
         allUserIds.addAll(followingUserIds);
         allUserIds.addAll(blockedUserIds);
+        allUserIds.addAll(sentFriendRequests)
 
         Iterable<User> allUsers = userDao.findAllById(allUserIds);
         List<User> friends = new ArrayList<>();
         List<User> followers = new ArrayList<>();
         List<User> following = new ArrayList<>();
         List<User> blockedUsers = new ArrayList<>();
+        List<User> sentRequests = new ArrayList<>();
         allUsers.forEach(e -> {
             if (friendUserIds.contains(e.getId())){
                 friends.add(e);
@@ -234,13 +237,15 @@ public class UserService {
                 following.add(e);
             } else if (blockedUserIds.contains(e.getId())){
                 blockedUsers.add(e);
+            } else if (sentFriendRequests.contains(e.getId())){
+                sentRequests.add(e);
             }
         });
         user.setFriends(friends);
         user.setFollowers(followers);
         user.setFollowing(following);
         user.setBlocked(blockedUsers);
-
+        user.setSentFriendRequests(sentRequests);
         UserActivity userActivity = userActivityDao.findByUserId(userId);
         if(userActivity != null){
             List<String> favouriteNewsIds = userActivity.getFavouriteNews();
