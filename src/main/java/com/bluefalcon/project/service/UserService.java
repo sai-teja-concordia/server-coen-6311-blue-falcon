@@ -220,7 +220,7 @@ public class UserService {
         allUserIds.addAll(followerUserIds);
         allUserIds.addAll(followingUserIds);
         allUserIds.addAll(blockedUserIds);
-        allUserIds.addAll(sentFriendRequests)
+        allUserIds.addAll(sentFriendRequests);
 
         Iterable<User> allUsers = userDao.findAllById(allUserIds);
         List<User> friends = new ArrayList<>();
