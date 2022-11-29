@@ -2,13 +2,10 @@ package com.bluefalcon.project.service;
 
 import com.bluefalcon.project.dao.*;
 import com.bluefalcon.project.enums.FriendRequestStatus;
+import com.bluefalcon.project.enums.SavedNewsEnum;
 import com.bluefalcon.project.model.*;
-import com.bluefalcon.project.model.User;
-import com.bluefalcon.project.model.News;
-import com.bluefalcon.project.model.UserActivity;
-import com.bluefalcon.project.model.UserChat;
-import com.bluefalcon.project.model.UserSocial;
 import com.bluefalcon.project.request.FriendRequest;
+import com.bluefalcon.project.request.SavedNewsRequest;
 import com.bluefalcon.project.response.BaseResponse;
 import com.bluefalcon.project.response.UserSocialResponse;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
@@ -17,7 +14,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -299,6 +295,33 @@ public class UserService {
         }
         return user.getWishlist();
     }
+
+    public BaseResponse updateSavedNewsList(SavedNewsRequest savedNewsRequest){
+        if (SavedNewsEnum.BOOKMARKED.equals(savedNewsRequest.getSavedNewsEnum())){
+            UserActivity userActivity = userActivityDao.findByUserId(savedNewsRequest.getUserId());
+            List<String> favouriteNews = userActivity.getFavouriteNews();
+            if (CollectionUtils.isEmpty(favouriteNews)){
+                favouriteNews = new ArrayList<>();
+            }
+            favouriteNews.add(savedNewsRequest.getNewsId());
+            userActivity.setFavouriteNews(favouriteNews);
+            userActivityDao.save(userActivity);
+            return BaseResponse.builder().message("Success").build();
+        } else if (SavedNewsEnum.UN_BOOKMARKED.equals(savedNewsRequest.getSavedNewsEnum())){
+            UserActivity userActivity = userActivityDao.findByUserId(savedNewsRequest.getUserId());
+            List<String> favouriteNews = userActivity.getFavouriteNews();
+            if (CollectionUtils.isEmpty(favouriteNews)){
+                favouriteNews = new ArrayList<>();
+            }
+            favouriteNews.remove(savedNewsRequest.getNewsId());
+            userActivity.setFavouriteNews(favouriteNews);
+            userActivityDao.save(userActivity);
+            return BaseResponse.builder().message("Success").build();
+        } else {
+            return  null;
+        }
+    }
+
 
     public List<User> searchUsers(String query) {
         List<User> allUsers = userDao.findAll();

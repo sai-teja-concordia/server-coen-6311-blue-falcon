@@ -3,6 +3,7 @@ package com.bluefalcon.project.controllers;
 import com.bluefalcon.project.model.News;
 import com.bluefalcon.project.model.User;
 import com.bluefalcon.project.request.FriendRequest;
+import com.bluefalcon.project.request.SavedNewsRequest;
 import com.bluefalcon.project.response.BaseResponse;
 import com.bluefalcon.project.response.UserSocialResponse;
 import com.bluefalcon.project.service.UserService;
@@ -54,6 +55,11 @@ public class UserController {
     @PostMapping(value = "/users/add-news-to-wishlist")
     public ResponseEntity<List<News>> addNewsToWishlist(@RequestParam("newsId") String newsId, @RequestParam("emailId") String emailId){
       return ResponseEntity.ok(userService.addNewsToWishlist(emailId, newsId));
+    }
+
+    @PutMapping(value = "/users/news-list")
+    public ResponseEntity<BaseResponse> addNewsToWishlist(@RequestBody SavedNewsRequest savedNewsRequest){
+        return ResponseEntity.ok(userService.updateSavedNewsList(savedNewsRequest));
     }
 
     @PostMapping(value = "/users/remove-news-to-wishlist")
