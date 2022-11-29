@@ -20,6 +20,10 @@ public class NewsService {
     @Autowired
     CommonUtils commonUtils;
 
+    public List<News> getAllNews(){
+        return newsDao.findAll();
+    }
+
     public NewsResponse getNews(String country) {
         Integer currentDayId = commonUtils.getCurrentDayId();
         List<News> listOfNews = newsDao.findByLocationAndDayId(country , commonUtils.getCurrentDayId());

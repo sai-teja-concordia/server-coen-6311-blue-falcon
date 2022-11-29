@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bluefalcon.project.model.News;
+
 import java.util.List;
 
 @RestController
@@ -28,5 +30,10 @@ public class NewsController {
     @GetMapping(value = "/news/category", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CategoryNewsResponse> getCategoryNews(@RequestParam("categories") List<String> categories) {
         return ResponseEntity.ok(newsService.getNews(categories));
+    }
+
+    @GetMapping(value="/news/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<News>> getNews(){
+        return ResponseEntity.ok(newsService.getAllNews());
     }
 }

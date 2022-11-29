@@ -1,5 +1,6 @@
 package com.bluefalcon.project.controllers;
 
+import com.bluefalcon.project.model.News;
 import com.bluefalcon.project.model.User;
 import com.bluefalcon.project.request.FriendRequest;
 import com.bluefalcon.project.response.BaseResponse;
@@ -43,6 +44,21 @@ public class UserController {
     @GetMapping(value = "/users/friends", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getUserFriends(@RequestParam("userId") String userId) {
         return ResponseEntity.ok(userService.getUserFriends(userId));
+    }
+
+    @GetMapping(value = "/users/get-news-wishlist")
+    public ResponseEntity<List<News>> getUserWishlist(@RequestParam("emailId") String emailId){
+        return ResponseEntity.ok(userService.getWishlist(emailId));
+    }
+
+    @PostMapping(value = "/users/add-news-to-wishlist")
+    public ResponseEntity<List<News>> addNewsToWishlist(@RequestParam("newsId") String newsId, @RequestParam("emailId") String emailId){
+      return ResponseEntity.ok(userService.addNewsToWishlist(emailId, newsId));
+    }
+
+    @PostMapping(value = "/users/remove-news-to-wishlist")
+    public ResponseEntity<List<News>> removeNewsToWishlist(@RequestParam("newsId") String newsId, @RequestParam("emailId") String emailId){
+        return ResponseEntity.ok(userService.removeNewsFromWishlist(emailId, newsId));
     }
 
     @GetMapping(value = "/users/social", produces = MediaType.APPLICATION_JSON_VALUE)
