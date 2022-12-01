@@ -1,5 +1,6 @@
 package com.bluefalcon.project.model;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Document("chat")
 @Data
+@Builder
 public class Chat {
 
     private String id;
@@ -15,6 +17,6 @@ public class Chat {
 
     private String receiverUser;
 
-    private List<String> messages;
+    private List<Message> messages;
 
 }

@@ -1,9 +1,15 @@
 package com.bluefalcon.project.service;
 
-import com.bluefalcon.project.dao.*;
+import com.bluefalcon.project.dao.NewsDao;
+import com.bluefalcon.project.dao.UserActivityDao;
+import com.bluefalcon.project.dao.UserDao;
+import com.bluefalcon.project.dao.UserSocialDao;
 import com.bluefalcon.project.enums.FriendRequestStatus;
 import com.bluefalcon.project.enums.SavedNewsEnum;
-import com.bluefalcon.project.model.*;
+import com.bluefalcon.project.model.News;
+import com.bluefalcon.project.model.User;
+import com.bluefalcon.project.model.UserActivity;
+import com.bluefalcon.project.model.UserSocial;
 import com.bluefalcon.project.request.FriendRequest;
 import com.bluefalcon.project.request.SavedNewsRequest;
 import com.bluefalcon.project.response.BaseResponse;
@@ -33,9 +39,6 @@ public class UserService {
     UserSocialDao userSocialDao;
 
     @Autowired
-    UserChatDao userChatDao;
-
-    @Autowired
     UserActivityDao userActivityDao;
 
     @Autowired
@@ -53,10 +56,6 @@ public class UserService {
         UserActivity userActivity = new UserActivity();
         userActivity.setUserId(savedUser.getId());
         userActivityDao.save(userActivity);
-
-        UserChat userChat = new UserChat();
-        userChat.setUserId(savedUser.getId());
-        userChatDao.save(userChat);
 
         return savedUser;
     }

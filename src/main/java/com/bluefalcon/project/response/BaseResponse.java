@@ -7,5 +7,6 @@ import lombok.Data;
 @Builder
 public class BaseResponse {
 
-    private String message;
+    @Builder.Default
+    private String message = "success";
 }
