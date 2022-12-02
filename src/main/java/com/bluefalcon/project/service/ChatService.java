@@ -18,6 +18,9 @@ public class ChatService {
     MessageDao messageDao;
 
     public BaseResponse sendMessage(Message message) {
+        if (message.getFromSender() == null || message.getToSender() == null || message.getContent() == null){
+            return BaseResponse.builder().build();
+        }
         message.setSentTime(System.currentTimeMillis());
         messageDao.save(message);
         return BaseResponse.builder().build();
